@@ -1,0 +1,54 @@
+{
+    "name": "ibnuhalimm/laravel-google-sheet",
+    "description": "Google Sheet API wrapper for Laravel",
+    "keywords": [
+        "ibnuhalimm",
+        "laravel-google-sheet"
+    ],
+    "homepage": "https://github.com/ibnuhalimm/laravel-google-sheet",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ibnu Halim Mustofa",
+            "email": "ibnuhalim@pm.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ibnuhalimm\\LaravelGoogleSheet\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ibnuhalimm\\LaravelGoogleSheet\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ibnuhalimm\\LaravelGoogleSheet\\GoogleSheetServiceProvider"
+            ],
+            "aliases": {
+                "GoogleSheet": "Ibnuhalimm\\LaravelGoogleSheet\\Facades\\GoogleSheet"
+            }
+        }
+    }
+}
