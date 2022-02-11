@@ -18,8 +18,10 @@ Google Sheet API Wrapper for Laravel. Manage your sheet with ease.
 - [License](#license)
 
 ## Requirements
-1. Create service account on Google Developer Console and share your Google Sheet file to your service account email. You can see [this guide](docs) for more details.
-2. Place your downloaded credentials json file to `storage/app/google-sheet/` folder, then rename these file to `credentials.json`. You can change the folder and filename according to your config.
+1. [Create a Google Cloud project](https://developers.google.com/workspace/guides/create-project). If you want to use your existing project, you can jump to the next step.
+2. [Create Service Acount Credentials](https://developers.google.com/workspace/guides/create-credentials#service-account) on Google Developer Console and share your Google Sheet file to these service account email.
+3. Place your downloaded credentials json file to `storage/app/google-sheet/` folder, then rename these file to `credentials.json`. You can change the folder and filename in this package's config.
+4. [Enable `Google Sheet API`](https://developers.google.com/workspace/guides/enable-apis) on Google Workspace APIs.
 
 ## Installation
 
