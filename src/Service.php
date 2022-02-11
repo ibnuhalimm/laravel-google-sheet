@@ -2,7 +2,7 @@
 
 namespace Ibnuhalimm\LaravelGoogleSheet;
 
-class GoogleSheet
+class Service
 {
     /** @var \Google_Client */
     protected $client;

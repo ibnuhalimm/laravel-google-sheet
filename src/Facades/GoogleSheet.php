@@ -2,11 +2,11 @@
 
 namespace Ibnuhalimm\LaravelGoogleSheet\Facades;
 
+use Ibnuhalimm\LaravelGoogleSheet\Service;
 use Illuminate\Support\Facades\Facade;
-use Ibnuhalimm\LaravelGoogleSheet\GoogleSheet as IbnuhalimmGoogleSheet;
 
 /**
- * @see \Ibnuhalimm\LaravelGoogleSheet\GoogleSheet
+ * @see \Ibnuhalimm\LaravelGoogleSheet\Service
  */
 class GoogleSheet extends Facade
 {
@@ -17,6 +17,6 @@ class GoogleSheet extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return IbnuhalimmGoogleSheet::class;
+        return Service::class;
     }
 }

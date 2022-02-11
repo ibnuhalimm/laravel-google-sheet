@@ -57,8 +57,8 @@ class GoogleSheetServiceProvider extends ServiceProvider
         });
 
         // Register the main class to use with the facade
-        $this->app->singleton(GoogleSheet::class, function (Application $app) {
-            return new GoogleSheet(
+        $this->app->singleton(Service::class, function (Application $app) {
+            return new Service(
                 $app->make(ConfigRepository::class)
             );
         });
