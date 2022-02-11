@@ -10,7 +10,11 @@ return [
      * See the catalogue of the scopes at https://developers.google.com/identity/protocols/oauth2/scopes
      */
     'scopes' => [
+        // 'https://www.googleapis.com/auth/drive',
+        // 'https://www.googleapis.com/auth/drive.file',
+        // 'https://www.googleapis.com/auth/drive.readonly',
         'https://www.googleapis.com/auth/spreadsheets',
+        // 'https://www.googleapis.com/auth/spreadsheets.readonly',
     ],
 
     /**
