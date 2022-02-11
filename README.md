@@ -2,9 +2,8 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ibnuhalimm/laravel-google-sheet.svg?style=flat-square)](https://packagist.org/packages/ibnuhalimm/laravel-google-sheet)
 [![Total Downloads](https://img.shields.io/packagist/dt/ibnuhalimm/laravel-google-sheet.svg?style=flat-square)](https://packagist.org/packages/ibnuhalimm/laravel-google-sheet)
-![GitHub Actions](https://github.com/ibnuhalimm/laravel-google-sheet/actions/workflows/main.yml/badge.svg)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Google Sheet API Wrapper for Laravel. Manage your sheet with ease.
 
 ## Contents
 - [Requirements](#requirements)
@@ -18,6 +17,10 @@ This is where your description should go. Try and limit it to a paragraph or two
 - [Credits](#credits)
 - [License](#license)
 
+## Requirements
+1. Create service account on Google Developer Console and share your Google Sheet file to your service account email. You can see [this guide](docs/README.md) for more details.
+2. Place your downloaded credentials json file to `storage/app/google-sheet/` folder, then rename these file to `credentials.json`. You can change the folder and filename according to your config.
+
 ## Installation
 
 You can install the package via composer:
@@ -30,27 +33,64 @@ Optionally, you can publish the config file of this package with this command:
 ```bash
 php artisan vendor:publish --provider="Ibnuhalimm\LaravelGoogleSheet\GoogleSheetServiceProvider"
 ```
+or by mention the config tag
+```bash
+php artisan vendor:publish --tag=google-sheet-config
+```
 
 ## Setting up
 
-Put your configuration to `.env` file:
+(Optional) you can set the GoogleSheet configuration to `.env` file:
 ```bash
 GOOGLE_SHEET_APP_NAME=""
+GOOGLE_SHEET_SERVICE_ACCOUNT_JSON=""
+GOOGLE_SHEET_ACCESS_TYPE=""
+GOOGLE_SHEET_PROMPT=""
 ```
 
 ## Usage
 
+### Fetch the data
+You can use `GoogleSheet` facade (the alias or class itself).
 ```php
-// Usage description here
+use Ibnuhalimm\LaravelGoogleSheet\Facades\GoogleSheet;
+
+$spreadSheetId = '1cyUalLbuw_TpAIgkf76JcU-BbsYCSwtVqJuf_gCNzYA';
+$cellRange = 'Class Data!A:E';
+
+GoogleSheet::service()
+    ->spreadSheet($spreadSheetId)
+    ->cellRange($cellRange)
+    ->get();
 ```
 
-### Testing
+This method will returns the subset of array data
+```php
+=> [
+     [
+       "Student Name",
+       "Gender",
+       "Class Level",
+       "Home State",
+       "Major",
+     ],
+     [
+       "Alexandra",
+       "Female",
+       "4. Senior",
+       "CA",
+       "English",
+     ],
+    ...
+```
+
+## Testing
 
 ```bash
 composer test
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
@@ -58,7 +98,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
 If you discover any security related issues, please email `ibnuhalim@pm.me` instead of using the issue tracker.
 
