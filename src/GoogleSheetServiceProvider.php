@@ -2,6 +2,7 @@
 
 namespace Ibnuhalimm\LaravelGoogleSheet;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class GoogleSheetServiceProvider extends ServiceProvider
@@ -22,7 +23,7 @@ class GoogleSheetServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('google-sheet.php'),
-            ], 'config');
+            ], 'google-sheet-config');
 
             // Publishing the views.
             /*$this->publishes([
@@ -49,12 +50,17 @@ class GoogleSheetServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'google-sheet');
 
+        $this->app->bind(ConfigRepository::class, function () {
+            return new ConfigRepository($this->app['config']['google-sheet']);
+        });
+
         // Register the main class to use with the facade
-        $this->app->singleton('google-sheet', function () {
-            return new GoogleSheet;
+        $this->app->singleton(GoogleSheet::class, function (Application $app) {
+            return new GoogleSheet(
+                $app->make(ConfigRepository::class)
+            );
         });
     }
 }
