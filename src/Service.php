@@ -37,7 +37,7 @@ class Service
      *
      * @return self
      */
-    public function make()
+    public function service()
     {
         $this->service = new \Google_Service_Sheets($this->client);
 
