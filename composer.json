@@ -33,7 +33,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Ibnuhalimm\\LaravelGoogleSheet\\Tests\\": "tests"
+            "Tests\\": "tests"
         }
     },
     "scripts": {

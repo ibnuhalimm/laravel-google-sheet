@@ -59,7 +59,7 @@ use GoogleSheet;
 
 $spreadSheetId = '1cyUalLbuw_TpAIgkf76JcU-BbsYCSwtVqJuf_gCNzYA';
 $sheetName = 'Class Data';
-$cellRange = 'A2:E5';
+$cellRange = 'A1:E5';
 
 GoogleSheet::useDocument($spreadSheetId)->fetchData($sheetName, $cellRange);
 ```
