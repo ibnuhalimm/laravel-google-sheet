@@ -3,12 +3,11 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ibnuhalimm/laravel-google-sheet.svg?style=flat-square)](https://packagist.org/packages/ibnuhalimm/laravel-google-sheet)
 [![Total Downloads](https://img.shields.io/packagist/dt/ibnuhalimm/laravel-google-sheet.svg?style=flat-square)](https://packagist.org/packages/ibnuhalimm/laravel-google-sheet)
 
-Google Sheet API Wrapper for Laravel. Manage your sheet with ease.
+Google Sheet API Wrapper for Laravel. Easiest way to interact with your sheet.
 
 ## Contents
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Setting Up](#setting-up)
 - [Usage](#usage)
 - [Testing](#testing)
 - [Changelog](#changelog)
@@ -38,15 +37,6 @@ php artisan vendor:publish --provider="Ibnuhalimm\LaravelGoogleSheet\GoogleSheet
 or by mention the config tag
 ```bash
 php artisan vendor:publish --tag=google-sheet-config
-```
-
-## Setting up
-
-(Optional) you can set the GoogleSheet configuration to `.env` file:
-```bash
-GOOGLE_SHEET_APP_NAME=""
-GOOGLE_SHEET_ACCESS_TYPE=""
-GOOGLE_SHEET_PROMPT=""
 ```
 
 ## Usage
