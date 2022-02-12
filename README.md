@@ -55,15 +55,13 @@ GOOGLE_SHEET_PROMPT=""
 ### Fetch the data
 You can use `GoogleSheet` facade (the alias or class itself).
 ```php
-use Ibnuhalimm\LaravelGoogleSheet\Facades\GoogleSheet;
+use GoogleSheet;
 
 $spreadSheetId = '1cyUalLbuw_TpAIgkf76JcU-BbsYCSwtVqJuf_gCNzYA';
-$cellRange = 'Class Data!A:E';
+$sheetName = 'Class Data';
+$cellRange = 'A2:E5';
 
-GoogleSheet::service()
-    ->spreadSheet($spreadSheetId)
-    ->cellRange($cellRange)
-    ->get();
+GoogleSheet::useDocument($spreadSheetId)->fetchData($sheetName, $cellRange);
 ```
 
 This method will returns the subset of array data

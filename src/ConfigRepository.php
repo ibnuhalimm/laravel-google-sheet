@@ -2,6 +2,8 @@
 
 namespace Ibnuhalimm\LaravelGoogleSheet;
 
+use Ibnuhalimm\LaravelGoogleSheet\Exceptions\InvalidConfiguration;
+
 class ConfigRepository
 {
     /** @var array */
@@ -21,11 +23,11 @@ class ConfigRepository
     /**
      * Get the application name
      *
-     * @return string|null
+     * @return string
      */
     public function getAppName()
     {
-        return $this->config['app_name'] ?? null;
+        return $this->config['app_name'];
     }
 
     /**
@@ -35,36 +37,40 @@ class ConfigRepository
      */
     public function getScopes()
     {
-        return $this->config['scopes'] ?? [];
+        return $this->config['scopes'];
     }
 
     /**
      * Get the service account credentials
      *
-     * @return string|null
+     * @return string
      */
     public function getServiceAccountCredentials()
     {
-        return $this->config['service_account_json'] ?? null;
+        if (! file_exists($this->config['service_account_json'])) {
+            throw InvalidConfiguration::missingCredentialsJsonFile($this->config['service_account_json']);
+        }
+
+        return $this->config['service_account_json'];
     }
 
     /**
      * Get the access type
      *
-     * @return string|null
+     * @return string
      */
     public function getAccessType()
     {
-        return $this->config['access_type'] ?? null;
+        return $this->config['access_type'];
     }
 
     /**
      * Get the prompt
      *
-     * @return string|null
+     * @return string
      */
     public function getPrompt()
     {
-        return $this->config['prompt'] ?? null;
+        return $this->config['prompt'];
     }
 }

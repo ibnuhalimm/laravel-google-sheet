@@ -30,10 +30,16 @@ class GoogleSheetServiceProvider extends ServiceProvider
             return new ConfigRepository($this->app['config']['google-sheet']);
         });
 
+        $this->app->bind(Client::class, function (Application $app) {
+            return new Client(
+                $app->make(ConfigRepository::class)
+            );
+        });
+
         // Register the main class to use with the facade
         $this->app->singleton(Service::class, function (Application $app) {
             return new Service(
-                $app->make(ConfigRepository::class)
+                $app->make(Client::class)
             );
         });
     }

@@ -4,53 +4,30 @@ namespace Ibnuhalimm\LaravelGoogleSheet;
 
 class Service
 {
-    /** @var \Google_Client */
+    /** @var Client */
     protected $client;
-
-    /** @var \Google_Sheet_Service */
-    protected $service;
 
     /** @var string */
     protected $spreadSheetId;
 
-    /** @var string */
-    protected $cellRange;
-
     /**
      * Create new instance
      *
-     * @param  ConfigRepository  $config
+     * @param  Client  $client
      * @return void
      */
-    public function __construct(ConfigRepository $config)
+    public function __construct($client)
     {
-        $this->client = new \Google_Client();
-        $this->client->setApplicationName($config->getAppName());
-        $this->client->setScopes($config->getScopes());
-        $this->client->setAuthConfig($config->getServiceAccountCredentials());
-        $this->client->setAccessType($config->getAccessType());
-        $this->client->setPrompt($config->getPrompt());
+        $this->client = $client;
     }
 
     /**
-     * Make Google_Service_Sheets instance
-     *
-     * @return self
-     */
-    public function service()
-    {
-        $this->service = new \Google_Service_Sheets($this->client);
-
-        return $this;
-    }
-
-    /**
-     * Set the spreadsheetId
+     * Set spread sheet id
      *
      * @param  string  $spreadSheetId
      * @return self
      */
-    public function spreadSheet(string $spreadSheetId)
+    public function useDocument(string $spreadSheetId)
     {
         $this->spreadSheetId = $spreadSheetId;
 
@@ -58,27 +35,28 @@ class Service
     }
 
     /**
-     * Set cell range with sheet name
+     * Merge sheet name with cell range
      *
+     * @param  string  $sheetName
      * @param  string  $cellRange
-     * @return self
+     * @return string
      */
-    public function cellRange(string $cellRange)
+    public function mergeSheetAndCellRange(string $sheetName, string $cellRange)
     {
-        $this->cellRange = $cellRange;
-
-        return $this;
+        return $sheetName . '!' . $cellRange;
     }
 
     /**
      * Get the values
      *
+     * @param  string  $sheetName
+     * @param  string  $cellRange
      * @return array
      */
-    public function get()
+    public function fetchData(string $sheetName, string $cellRange)
     {
-        $response = $this->service->spreadsheets_values->get($this->spreadSheetId, $this->cellRange);
+        $mergedCellRange = $this->mergeSheetAndCellRange($sheetName, $cellRange);
 
-        return $response->getValues();
+        return $this->client->getCellValues($this->spreadSheetId, $mergedCellRange);
     }
 }
