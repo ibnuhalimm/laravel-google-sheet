@@ -38,7 +38,8 @@ class ServiceTest extends TestCase
     {
         $mockArguments = [
             $this->dummyData->getSpreadSheetId(),
-            $this->dummyData->getSheetName() . '!' . $this->dummyData->getCellRange(),
+            $this->dummyData->getSheetName(),
+            $this->dummyData->getCellRange()
         ];
 
         $expectedData = [

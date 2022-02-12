@@ -18,6 +18,9 @@ class ServiceProviderTest extends TestCase
         parent::setUp();
 
         $this->dummyData = new DummyData();
+
+        Storage::disk('local')
+            ->put('google-sheet/credentials.json', json_encode($this->dummyData->getCredentials()));;
     }
 
     /** @test */
@@ -32,17 +35,13 @@ class ServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_credentials_as_json_file()
+    public function it_should_throw_exception_if_no_one_scope_available()
     {
-        Storage::fake('testing-storage');
-        Storage::disk('testing-storage')
-            ->put('credentials.json', json_encode($this->dummyData->getCredentials()));
+        $this->app['config']->set('google-sheet.scopes', []);
 
-        $credentialsPath = 'framework/testing-disk/credentials.json';
-        $this->app['config']
-            ->set('google-sheet.service_account_json', $credentialsPath);
+        $this->expectExceptionMessage('You must specify at least one scope.');
 
-        $googleSheet = $this->app['GoogleSheet'];
-        $this->assertInstanceOf(GoogleSheet::class, $googleSheet);
+        GoogleSheet::useDocument($this->dummyData->getSpreadSheetId())
+            ->fetchData($this->dummyData->getSheetName(), $this->dummyData->getCellRange());
     }
 }

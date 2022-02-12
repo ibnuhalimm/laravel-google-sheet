@@ -2,12 +2,15 @@
 
 namespace Ibnuhalimm\LaravelGoogleSheet;
 
+use Google_Client;
+use Google_Service_Sheets;
+
 class Client
 {
     /** @var ConfigRepository */
     protected $config;
 
-    /** @var \Google_Client */
+    /** @var Google_Client */
     protected $google;
 
     /**
@@ -20,34 +23,45 @@ class Client
     {
         $this->config = $config;
 
-        $this->google = new \Google_Client();
-        $this->google->setApplicationName($this->config->getAppName());
-        $this->google->setScopes($this->config->getScopes());
+        $this->google = new Google_Client();
         $this->google->setAuthConfig($this->config->getServiceAccountCredentials());
-        $this->google->setAccessType($this->config->getAccessType());
-        $this->google->setPrompt($this->config->getPrompt());
+        $this->google->setScopes($this->config->getScopes());
     }
 
     /**
      * Make Google_Service_Sheets object
      *
-     * @return \Google_Service_Sheet
+     * @return Google_Service_Sheet
      */
     public function makeService()
     {
-        return new \Google_Service_Sheets($this->google);
+        return new Google_Service_Sheets($this->google);
+    }
+
+    /**
+     * Merge sheet name with cell range
+     *
+     * @param  string  $sheetName
+     * @param  string  $cellRange
+     * @return string
+     */
+    public function mergeSheetAndCellRange(string $sheetName, string $cellRange)
+    {
+        return $sheetName . '!' . $cellRange;
     }
 
     /**
      * Get the values
      *
      * @param  string  $spreadSheetId
+     * @param  string  $sheetName
      * @param  string  $cellRange
      * @return array
      */
-    public function getCellValues($spreadSheetId, $cellRange)
+    public function getCellValues($spreadSheetId, $sheetName, $cellRange)
     {
-        $response = $this->makeService()->spreadsheets_values->get($spreadSheetId, $cellRange);
+        $mergedCellRange = $this->mergeSheetAndCellRange($sheetName, $cellRange);
+        $response = $this->makeService()->spreadsheets_values->get($spreadSheetId, $mergedCellRange);
 
         return $response->getValues();
     }

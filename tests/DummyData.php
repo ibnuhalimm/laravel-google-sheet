@@ -24,8 +24,8 @@ class DummyData
         return [
             'type' => 'service_account',
             'project_id' => 'isocoding-id',
-            'public_key_id' => 'isocoding-public-key--id',
-            'public_key' => 'isocoding-public-key',
+            'private_key_id' => 'isocoding-private-key--id',
+            'private_key' => 'isocoding-private-key',
             'client_email' => 'package-dev@isocoding-id.iam.gserviceaccount.com',
             'client_id' => '123456780',
             'auth_uri' => 'https://accounts.google.com/o/oauth2/auth',

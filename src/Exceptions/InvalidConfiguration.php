@@ -10,4 +10,9 @@ class InvalidConfiguration extends Exception
     {
         return new static("Could not find service account credentials file at `{$path}`.");
     }
+
+    public static function missingScopes()
+    {
+        return new static('You must specify at least one scope.');
+    }
 }

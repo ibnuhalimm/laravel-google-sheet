@@ -21,26 +21,6 @@ class ConfigRepository
     }
 
     /**
-     * Get the application name
-     *
-     * @return string
-     */
-    public function getAppName()
-    {
-        return $this->config['app_name'];
-    }
-
-    /**
-     * Get the scopes
-     *
-     * @return array
-     */
-    public function getScopes()
-    {
-        return $this->config['scopes'];
-    }
-
-    /**
      * Get the service account credentials
      *
      * @return string
@@ -55,22 +35,26 @@ class ConfigRepository
     }
 
     /**
-     * Get the access type
+     * Get the scopes
      *
-     * @return string
+     * @return array
      */
-    public function getAccessType()
+    public function getScopes()
     {
-        return $this->config['access_type'];
+        if (empty($this->config['scopes'])) {
+            throw InvalidConfiguration::missingScopes();
+        }
+
+        return $this->config['scopes'];
     }
 
     /**
-     * Get the prompt
+     * Validate scopes config
      *
-     * @return string
+     * @return bool
      */
-    public function getPrompt()
+    private function validateScopesConfig()
     {
-        return $this->config['prompt'];
+        //
     }
 }

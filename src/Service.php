@@ -35,18 +35,6 @@ class Service
     }
 
     /**
-     * Merge sheet name with cell range
-     *
-     * @param  string  $sheetName
-     * @param  string  $cellRange
-     * @return string
-     */
-    public function mergeSheetAndCellRange(string $sheetName, string $cellRange)
-    {
-        return $sheetName . '!' . $cellRange;
-    }
-
-    /**
      * Get the values
      *
      * @param  string  $sheetName
@@ -55,8 +43,6 @@ class Service
      */
     public function fetchData(string $sheetName, string $cellRange)
     {
-        $mergedCellRange = $this->mergeSheetAndCellRange($sheetName, $cellRange);
-
-        return $this->client->getCellValues($this->spreadSheetId, $mergedCellRange);
+        return $this->client->getCellValues($this->spreadSheetId, $sheetName, $cellRange);
     }
 }
