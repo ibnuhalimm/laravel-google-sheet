@@ -73,7 +73,7 @@ class Service
     /**
      * Get the values
      *
-     * @return mixed
+     * @return array
      */
     public function get()
     {

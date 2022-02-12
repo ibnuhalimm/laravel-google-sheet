@@ -21,7 +21,7 @@ class ConfigRepository
     /**
      * Get the application name
      *
-     * @return string
+     * @return string|null
      */
     public function getAppName()
     {
@@ -41,7 +41,7 @@ class ConfigRepository
     /**
      * Get the service account credentials
      *
-     * @return string
+     * @return string|null
      */
     public function getServiceAccountCredentials()
     {
@@ -51,7 +51,7 @@ class ConfigRepository
     /**
      * Get the access type
      *
-     * @return string
+     * @return string|null
      */
     public function getAccessType()
     {
@@ -61,7 +61,7 @@ class ConfigRepository
     /**
      * Get the prompt
      *
-     * @return string
+     * @return string|null
      */
     public function getPrompt()
     {
